@@ -86,7 +86,7 @@ public class guessTheConsonantGame implements ActionListener{
         if(e.getSource()==btn[random_int-1]){
             for(int j=0;j<constonants.length;j++){
                 if(e.getSource()==btn[j]){
-                    System.out.println("Correct, you clicked: "+constonants[j]+"!!!");
+                    System.out.println("Correct, you clicked: "+constonants[j]+". Nice!");
                 }
             }
             panelPopUp.remove(wrongAnswer);
@@ -101,7 +101,7 @@ public class guessTheConsonantGame implements ActionListener{
         else {
             for(int j=0;j<constonants.length;j++){
                 if(e.getSource()==btn[j]){
-                    System.out.println("Nope, you clicked: "+constonants[j]+" try again");
+                    System.out.println("Nope, you clicked: "+constonants[j]+". Try again");
                 }
             }
             panelPopUp.remove(correctAnswer);
