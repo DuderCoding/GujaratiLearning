@@ -1,14 +1,26 @@
-import javax.swing.*;
-import java.awt.*;
+import org.w3c.dom.ls.LSOutput;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.TextField;
+import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
 public class guessTheConsonantGame implements ActionListener{
-
+    public volatile boolean correct = false;
     String[] constonants = {"Ka","Kha","Ga","Gha","Ca","Cha","Ja","Jha","Tta","Ttha","Dda","Ddha","Nna","Ta","Tha","Da","Dha","Na","Pa","Pha","Ba","Bha","Ma","Ya","Ra","La","Lla","Va","Sha","Ssa","Sa","Ha","Ksa","Gna"};
-
     JPanel panel;
     JPanel panelPopUp;
     TextField wrongAnswer;
@@ -18,67 +30,92 @@ public class guessTheConsonantGame implements ActionListener{
     JLabel label;
     ImageIcon image;
     int random_int;
+
+
     public guessTheConsonantGame(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the number of tests you would like to do:");
+        int amountOfPlays = Integer.valueOf(scanner.nextLine());
+        int[] randomNums = new int[amountOfPlays];
 
-        JFrame frame = new JFrame();
-        popUpFrame = new JFrame();
+        for(int k=1;k<=amountOfPlays;k++) {
+            correct = false;
 
-        popUpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        label = new JLabel();
+            JFrame frame = new JFrame();
+            popUpFrame = new JFrame();
+            popUpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        Random rand = new Random();
-        int upperBound = 34;
-        random_int = rand.nextInt(upperBound)+1;
-        System.out.println(random_int);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        setImage(random_int);
+            label = new JLabel();
 
-        label.setIcon(image);
+            Random rand = new Random();
+            int upperBound = 34;
+            random_int = rand.nextInt(upperBound) + 1;
+            randomNums[k-1]=random_int;
 
-        frame.add(label);
+            if(k!=1&&random_int==randomNums[k-2]&&random_int<35){
+                random_int+=1;
+            } else if(k!=1&&random_int==randomNums[k-2]&&random_int==35){
+                random_int-=1;
+            }
+            System.out.println(random_int);
 
-        frame.setVisible(true);
+            setImage(random_int);
+            label.setIcon(image);
 
-        frame.getContentPane().setBackground(new Color(0x123456));
-        frame.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
+            frame.add(label);
+            frame.setVisible(true);
+            frame.getContentPane().setBackground(new Color(0x123456));
+            frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
-        popUpFrame.setLayout(new FlowLayout(FlowLayout.CENTER,10,10));
+            popUpFrame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 
+            panel = new JPanel();
+            panelPopUp = new JPanel();
+            panelPopUp.setPreferredSize(new Dimension(400, 400));
 
-        panel = new JPanel();
-        panelPopUp = new JPanel();
-        panelPopUp.setPreferredSize(new Dimension(400,400));
+            wrongAnswer = new TextField();
+            wrongAnswer.setFont(new Font("Consolas", Font.PLAIN, 25));
+            wrongAnswer.setForeground(Color.WHITE);
+            wrongAnswer.setBackground(Color.RED);
+            wrongAnswer.setText("Wrong, try again!");
+            correctAnswer = new TextField();
+            correctAnswer.setFont(new Font("Consolas", Font.PLAIN, 25));
 
-        wrongAnswer = new TextField();
-        wrongAnswer.setFont(new Font("Consolas",Font.PLAIN,25));
-        wrongAnswer.setForeground(Color.WHITE);
-        wrongAnswer.setBackground(Color.RED);
-        wrongAnswer.setText("Wrong, try again!");
-        correctAnswer = new TextField();
-        correctAnswer.setFont(new Font("Consolas",Font.PLAIN,25));
+            correctAnswer.setForeground(Color.WHITE);
+            correctAnswer.setBackground(new Color(0x06400));
+            correctAnswer.setText("Correct!");
 
-        correctAnswer.setForeground(Color.WHITE);
-        correctAnswer.setBackground(new Color(0x06400));
-        correctAnswer.setText("Correct!");
+            panel.setPreferredSize(new Dimension(480, 180));
+            panel.setBackground(Color.lightGray);
+            panel.setLayout(new FlowLayout());
+            popUpFrame.pack();
+            popUpFrame.setSize(250, 100);
+            popUpFrame.add(panelPopUp);
+            popUpFrame.setVisible(false);
 
-        panel.setPreferredSize(new Dimension(480,180));
-        panel.setBackground(Color.lightGray);
-        panel.setLayout(new FlowLayout());
-        popUpFrame.pack();
-        popUpFrame.setSize(250,100);
-        popUpFrame.add(panelPopUp);
-        popUpFrame.setVisible(false);
+            for (int i = 0; i < constonants.length; i++) {
+                btn[i] = new JButton(constonants[i]);
+                btn[i].setBounds(0, 0, 20, 20);
+                panel.add(btn[i]);
+                btn[i].addActionListener(this);
+            }
+            frame.pack();
+            frame.setSize(520, 550);
+            frame.add(panel);
 
-        for(int i=0;i<constonants.length;i++){
-            btn[i] = new JButton(constonants[i]);
-            btn[i].setBounds(0,0,20,20);
-            panel.add(btn[i]);
-            btn[i].addActionListener(this);
+            while(!correct){
+            }
+            if(correct==true&&k<amountOfPlays){
+                System.out.println("Onto the next consonant, you have done "+(k)+" out of "+amountOfPlays);
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+            } else{
+                System.out.println("You have completed the "+amountOfPlays+" consonant tests!");
+                frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+                System.exit(0);
+            }
         }
-        frame.pack();
-        frame.setSize(520,550);
-        frame.add(panel);
     }
 
     @Override
@@ -87,13 +124,14 @@ public class guessTheConsonantGame implements ActionListener{
             for(int j=0;j<constonants.length;j++){
                 if(e.getSource()==btn[j]){
                     System.out.println("Correct, you clicked: "+constonants[j]+". Nice!");
+                    correct = true;
                 }
             }
             panelPopUp.remove(wrongAnswer);
             panelPopUp.add(correctAnswer);
             popUpFrame.setVisible(true);
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(2);
                 panelPopUp.remove(correctAnswer);
                 popUpFrame.setVisible(false);
             } catch(InterruptedException ex){}
@@ -108,7 +146,7 @@ public class guessTheConsonantGame implements ActionListener{
             panelPopUp.add(wrongAnswer);
             popUpFrame.setVisible(true);
             try {
-                TimeUnit.SECONDS.sleep(3);
+                TimeUnit.SECONDS.sleep(2);
                 panelPopUp.remove(wrongAnswer);
                 popUpFrame.setVisible(false);
             } catch(InterruptedException ex){}
@@ -254,10 +292,5 @@ public class guessTheConsonantGame implements ActionListener{
                 label.setIcon(image);
                 break;
         }
-
     }
-
-
-
-
 }
