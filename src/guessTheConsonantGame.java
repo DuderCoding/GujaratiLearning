@@ -13,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
-import java.sql.SQLOutput;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.Scanner;
@@ -52,13 +51,14 @@ public class guessTheConsonantGame implements ActionListener{
             Random rand = new Random();
             int upperBound = 34;
             random_int = rand.nextInt(upperBound) + 1;
-            randomNums[k-1]=random_int;
+            System.out.println("Random int old "+random_int);
 
             if(k!=1&&random_int==randomNums[k-2]&&random_int<35){
                 random_int+=1;
             } else if(k!=1&&random_int==randomNums[k-2]&&random_int==35){
                 random_int-=1;
             }
+            randomNums[k-1]=random_int;
             System.out.println(random_int);
 
             setImage(random_int);
