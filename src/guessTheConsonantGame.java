@@ -1,21 +1,18 @@
-import org.w3c.dom.ls.LSOutput;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Color;
 import java.awt.TextField;
 import java.awt.FlowLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
-import java.util.Scanner;
 
 public class guessTheConsonantGame implements ActionListener{
     public volatile boolean correct = false;
@@ -30,16 +27,15 @@ public class guessTheConsonantGame implements ActionListener{
     ImageIcon image;
     int random_int;
 
-
     public guessTheConsonantGame(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter the number of tests you would like to do:");
-        int amountOfPlays = Integer.valueOf(scanner.nextLine());
+        int amountOfPlays = Main.plays;
         int[] randomNums = new int[amountOfPlays];
+
+        /* int[] hardOnes = new int []{3,4,5,9,10,11,12,15,16,17,24};
+        Ignore hardOnes: These are the consonants I struggle the most with..!*/
 
         for(int k=1;k<=amountOfPlays;k++) {
             correct = false;
-
             JFrame frame = new JFrame();
             popUpFrame = new JFrame();
             popUpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,7 +47,6 @@ public class guessTheConsonantGame implements ActionListener{
             Random rand = new Random();
             int upperBound = 34;
             random_int = rand.nextInt(upperBound) + 1;
-            System.out.println("Random int old "+random_int);
 
             if(k!=1&&random_int==randomNums[k-2]&&random_int<35){
                 random_int+=1;
@@ -59,6 +54,12 @@ public class guessTheConsonantGame implements ActionListener{
                 random_int-=1;
             }
             randomNums[k-1]=random_int;
+
+            ///////////////////
+            /* Ignore: For my own testing!
+            random_int = rand.nextInt(11);
+            random_int = hardOnes[random_int]; */
+
             System.out.println(random_int);
 
             setImage(random_int);
@@ -131,7 +132,7 @@ public class guessTheConsonantGame implements ActionListener{
             panelPopUp.add(correctAnswer);
             popUpFrame.setVisible(true);
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
                 panelPopUp.remove(correctAnswer);
                 popUpFrame.setVisible(false);
             } catch(InterruptedException ex){}
@@ -146,7 +147,7 @@ public class guessTheConsonantGame implements ActionListener{
             panelPopUp.add(wrongAnswer);
             popUpFrame.setVisible(true);
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
                 panelPopUp.remove(wrongAnswer);
                 popUpFrame.setVisible(false);
             } catch(InterruptedException ex){}
