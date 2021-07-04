@@ -1,3 +1,4 @@
+//This part of the program is for learning the Gujarati consonants.
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;

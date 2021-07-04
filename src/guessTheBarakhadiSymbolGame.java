@@ -1,3 +1,4 @@
+//This part of the program is for learning the 1st Gujarati Barakhadi, it will also help you to learn the Barakhadi symbols.
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

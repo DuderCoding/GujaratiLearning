@@ -1,8 +1,9 @@
 //This program uses a GUI to learn Gujarati, it is a novel program built from scratch with Java programming
 //skills I have learnt along the way. I hope it will help people to learn Gujarati once it is finished.
-//So far only the Gujarati consonants can be learnt, but looking to add more in the future.
+//So far only the Gujarati consonants & the first Barakhadi can be learnt, but I am looking to add more in the future.
 //Gujarati is one of the many languages of India, it is mostly spoken by people from the Indian state of Gujarat.
-//Date: 19/06/2021
+//I hope yo learn Gujarati myself so I can pass down the language to my children in the future.
+//Date: 04/07/2021
 //Author: Dilberto
 
 import javax.swing.JFrame;
