@@ -2,7 +2,7 @@
 //skills I have learnt along the way. I hope it will help people to learn Gujarati once it is finished.
 //So far only the Gujarati consonants & the first Barakhadi can be learnt, but I am looking to add more in the future.
 //Gujarati is one of the many languages of India, it is mostly spoken by people from the Indian state of Gujarat.
-//I hope yo learn Gujarati myself so I can pass down the language to my children in the future.
+//I hope to learn Gujarati myself so I can pass down the language to my children in the future.
 //Date: 04/07/2021
 //Author: Dilberto
 
